@@ -44,6 +44,11 @@
                     </ul>
                 </nav>
             </div>
+            <div class="icons">
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                class="icon-menu"></span></a>
+          </div>
+
         </div>
     </div>
 </div>
