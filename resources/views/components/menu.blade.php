@@ -45,7 +45,7 @@
                 </nav>
             </div>
             <div class="icons">
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block "><span
                 class="icon-menu"></span></a>
           </div>
 
