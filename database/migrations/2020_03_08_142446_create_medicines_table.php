@@ -19,6 +19,7 @@ class CreateMedicinesTable extends Migration
             $table->integer('added_by');
             $table->longText('description');
             $table->longText('image');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

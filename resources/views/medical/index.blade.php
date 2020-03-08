@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('css')
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+@endsection
 @section('content')
 @include('components.menu')
 <div class="bg-light py-3">
@@ -11,7 +15,7 @@
 </div>
 <div class="site-section">
     <div class="container">
-        <div class="row mb-5">
+        <div>
             <table id="ProductTable" class="table" style="width:100%">
                 <thead>
                     <tr>
@@ -36,7 +40,6 @@
 
         $.ajaxSetup({
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: {},
 
@@ -56,8 +59,24 @@
             ]
 
         });
-
-
     });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $(document).on('click', 'a.jquery-postback', function (e) {
+        e.preventDefault(); // does not go through with the link.
+
+        var $this = $(this);
+
+        $.post({
+            type: $this.data('method'),
+            url: $this.attr('href')
+        }).done(function (data) {
+            location.reload();
+        });
+    });
+
 </script>
 @endsection

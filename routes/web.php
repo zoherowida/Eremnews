@@ -37,12 +37,20 @@ Route::name('web.')->group(static function () {
     ]);
 
     Route::group(['middleware' => 'auth'], function(){
-        Route::resource('medicel', 'MedicalController');
+
+        Route::resource('medicel', 'MedicalController', [
+            'names' => [
+                'index' => 'medicel',
+                'store' => 'medicel.new',
+                'destroy' => 'medicel.delete',
+            ]
+        ]);
 
         Route::get('ajax/product', [
             'as' => 'allProduct.ajax',
             'uses' => 'MedicalController@ajaxProduct',
         ]);
+
 
     });
 

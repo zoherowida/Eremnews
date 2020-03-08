@@ -20,7 +20,7 @@
             @foreach($product as $key=>$value)
             <div class="col-sm-6 col-lg-4 text-center item mb-4">
                 <a href="{{route('web.singleProduct',$value->id)}}"> <img src="{{URL::to('storage/'.$value->image)}}"
-                        alt="Image"></a>
+                        alt="Image" style="width:270px;height:270px"></a>
                 <h3 class="text-dark"><a href="{{route('web.singleProduct',$value->id)}}">{{$value->name}}</a></h3>
             </div>
             @endforeach

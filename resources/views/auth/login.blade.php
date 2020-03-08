@@ -46,15 +46,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-lg btn-block" >{{ __('Login') }}</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">{{ __('Login') }}</button>
                     </div>
-                    <div class="form-group">
-                        @if (Route::has('password.request'))
-                        <a class="btn btn-link" href="{{ route('password.request') }}">
-                            {{ __('Forgot Your Password?') }}
-                        </a>
-                        @endif
-            </div>
 
                 </form>
             </div>

@@ -13,7 +13,6 @@ class MedicalController extends Controller
 {
 
     public function ajaxProduct(Request $request){
-
         if ($request->isXmlHttpRequest()) {
             DB::enableQueryLog();
             $limit = (int)$request->input('limit');
@@ -22,13 +21,15 @@ class MedicalController extends Controller
             $medicine = Medicine::where('added_by',Auth::user()->id);
             $TotalProduct = $medicine->count();
             $ProductArray = [];
+
             $medicine->limit($limit)->offset($offset)->latest()->get()->each(static function (Medicine $product) use (&$ProductArray) {
+                $routeDestroy =  route('web.medicel.delete', ['id' => $product->id]);
+
                 $ProductArray[] = [
                     'image' => '<img src="'.url('storage/'.$product->image.'').'"alt="'.$product->name.'" style ="height: 150px;width: 150px;">',
                     'name' => $product->name,
                     'description' => $product->description,
-                    'action' => '
-                    <a  data-method="delete" href="medicel/'.$product->id.'" style="color: white"><button class="btn btn-outline-primary btn-md btn-block">Remove</button></a>',
+                    'action' => '<a  class="jquery-postback" data-method="delete" href="'.$routeDestroy.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-md btn-block">Remove</button></a>',
                 ];
             });
 
@@ -147,7 +148,7 @@ class MedicalController extends Controller
      */
     public function destroy($id)
     {
-        Medicine::findOrfaild($id)->delete();
-        return back();
+        Medicine::findOrfail($id)->delete();
+        return \response('', 200);
     }
 }

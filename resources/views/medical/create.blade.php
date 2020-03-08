@@ -26,7 +26,7 @@
                 </div>
                 @endforeach
 
-                <form method="POST" action="../medicel" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('web.medicel.new') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group row">
                         <div class="col-md-12">
