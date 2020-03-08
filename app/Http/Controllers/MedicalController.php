@@ -30,9 +30,11 @@ class MedicalController extends Controller
                     'image' => '<img src="'.url('storage/'.$product->image.'').'"alt="'.$product->name.'" style ="height: 150px;width: 150px;">',
                     'name' => $product->name,
                     'description' => $product->description,
+                    'createdAt' => $product->created_at->format('d.m.Y h:s:m a'),
+                    'updated' => $product->created_at->format('d.m.Y h:s:m a'),
                     'action' => '
-                    <a class="jquery-postback" data-method="delete" href="'.$routeDestroy.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-md ">Remove</button></a>
-                    <a data-method="delete" href="'.$routeEdit.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary  btn-md">Update</button></a>',
+                    <a class="jquery-postback" data-method="delete" href="'.$routeDestroy.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-sm ">Remove</button></a>
+                    <a data-method="delete" href="'.$routeEdit.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-sm">Update</button></a>',
                 ];
             });
 
