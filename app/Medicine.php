@@ -17,7 +17,7 @@ class Medicine extends Model
         'added_by',
     ];
 
-    public function AddedBy(): BelongsTo
+    public function User(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

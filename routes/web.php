@@ -42,6 +42,8 @@ Route::name('web.')->group(static function () {
             'names' => [
                 'index' => 'medicel',
                 'store' => 'medicel.new',
+                'edit' => 'medicel.edit',
+                'update' => 'medicel.update',
                 'destroy' => 'medicel.delete',
             ]
         ]);

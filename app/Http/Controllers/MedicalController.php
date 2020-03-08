@@ -24,12 +24,15 @@ class MedicalController extends Controller
 
             $medicine->limit($limit)->offset($offset)->latest()->get()->each(static function (Medicine $product) use (&$ProductArray) {
                 $routeDestroy =  route('web.medicel.delete', ['id' => $product->id]);
+                $routeEdit =  route('web.medicel.edit', ['id' => $product->id]);
 
                 $ProductArray[] = [
                     'image' => '<img src="'.url('storage/'.$product->image.'').'"alt="'.$product->name.'" style ="height: 150px;width: 150px;">',
                     'name' => $product->name,
                     'description' => $product->description,
-                    'action' => '<a  class="jquery-postback" data-method="delete" href="'.$routeDestroy.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-md btn-block">Remove</button></a>',
+                    'action' => '
+                    <a class="jquery-postback" data-method="delete" href="'.$routeDestroy.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary btn-md ">Remove</button></a>
+                    <a data-method="delete" href="'.$routeEdit.'" data-method="delete" style="color: white"><button class="btn btn-outline-primary  btn-md">Update</button></a>',
                 ];
             });
 
@@ -97,7 +100,7 @@ class MedicalController extends Controller
         }
 
 
-        $country = Medicine::create([
+        Medicine::create([
             'name' => $request->name,
             'description' => $request->description,
             'image' => 'medical/'.$fileNameStore,
@@ -125,7 +128,8 @@ class MedicalController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Medicine::findOrfail($id);
+        return view('medical.edit',compact('product'));
     }
 
     /**
@@ -137,7 +141,38 @@ class MedicalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request,[
+            'name'=>'required|max:80',
+            'description'=>'required|max:265',
+        ]);
+
+        if($request->hasFile('image')){
+            $filenameWithExtention = $request->file('image')->getClientOriginalName();
+            $fileName = pathinfo($filenameWithExtention,PATHINFO_FILENAME);
+            $extension = $request->file('image')->getClientOriginalExtension();
+            $extension_accept = array("jpeg", "jpg", "png", "gif", "svg");
+
+            if(!in_array($extension, $extension_accept))
+            {
+                return back()->withError("Error in Upload image File");
+            }
+
+            $fileNameStore = $fileName .'_'.time().'.'.$extension;
+            $path = $request->file('image')->storeAs('public/medical',$fileNameStore);
+        }
+        else {
+            $fileNameStore = '';
+        }
+
+        $medicine = Medicine::findOrfail($id);
+        $medicine->name = $request->name;
+        $medicine->description = $request->description;
+        if($fileNameStore !== ''){
+            $medicine->image = 'medical/'.$fileNameStore;
+
+        }
+        $medicine->save();
+        return back()->withMessage("success Updated");
     }
 
     /**

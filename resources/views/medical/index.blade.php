@@ -22,7 +22,7 @@
                         <th data-field="image">Image</th>
                         <th data-field="name">Product</th>
                         <th data-field="description">Description</th>
-                        <th data-field="action">Action</th>
+                        <th data-field="action" style="width: 20% ;">Action</th>
                     </tr>
                 </thead>
             </table>

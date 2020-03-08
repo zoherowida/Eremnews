@@ -19,7 +19,6 @@ class WebController extends Controller
         return view('product',compact('product'));
     }
     public function singleProduct(Medicine $id){
-
         return view('singleProduct',compact('id'));
 
     }
